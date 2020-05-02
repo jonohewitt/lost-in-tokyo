@@ -25,8 +25,10 @@ const Nav = () => (
   <nav className="pt3 pt4-ns mb4 mb0-ns">
     <ul className="list flex flex-wrap flex-nowrap-ns justify-between items-center pa0 ma0">
       {menu.map(item => (
-        <li className={item.className}>
-          <a href={item.href}>{item.children}</a>
+        <li className={`mh2-ns f6 f4-l tc ${item.className}`}>
+          <a className="white no-underline" href={item.href}>
+            {item.children}
+          </a>
         </li>
       ))}
     </ul>
