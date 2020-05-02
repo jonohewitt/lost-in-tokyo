@@ -1,5 +1,5 @@
 const Highlight = props => (
-  <span className={`relative highlight highlight-blue`}>
+  <span className={`relative highlight highlight-${props.color}`}>
     <span className="relative z-2">{props.children}</span>
   </span>
 );
@@ -12,16 +12,31 @@ const Intro = () => (
       in <Highlight color="blue">Tokyo</Highlight>, Japan.
     </p>
     <div>
-      From museums and galleries, to robot restaurants and kitten cafes, Tokyo
-      is the gift that keeps on giving. Dattebayo!
+      From <Highlight color="blue">museums</Highlight> and{" "}
+      <Highlight color="blue">galleries</Highlight>, to{" "}
+      <Highlight color="pink">robot restaurants</Highlight> and{" "}
+      <Highlight color="yellow">kitten cafes</Highlight>, Tokyo is the gift that
+      keeps on giving. <Highlight color="yellow">Dattebayo</Highlight>!
     </div>
   </div>
+);
+
+const Nav = () => (
+  <nav className="pt3 pt4-ns mb4 mb0-ns">
+    <ul className="list flex flex-wrap flex-nowrap-ns justify-between items-center pa0 ma0">
+      {menu.map(item => (
+        <li className={item.className}>
+          <a href={item.href}>{item.children}</a>
+        </li>
+      ))}
+    </ul>
+  </nav>
 );
 
 const App = () => (
   <div>
     <div className="min-vh-100 ph4 flex flex-column">
-      {/* our navigation component */}
+      <Nav />
       <Intro />
     </div>
     <div className="flex flex-wrap container">
