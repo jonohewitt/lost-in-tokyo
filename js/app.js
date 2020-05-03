@@ -8,7 +8,7 @@ const Intro = () => (
   <div className="m-auto-ns f4 f3-m f2-l tc w-80-l normal">
     <p className="mb3 bm4-ns">
       <Highlight color="aqua">Lost in Tokyo</Highlight> is a directory of fun
-      places to see, play in and <Highlight color="yellow">explore</Highlight>,
+      places  to see, play in and <Highlight color="yellow">explore</Highlight>,
       in <Highlight color="blue">Tokyo</Highlight>, Japan.
     </p>
     <div>
@@ -39,7 +39,7 @@ const Nav = () => (
   </nav>
 );
 
-const Overlay = ({ showInfo, title, description }) => (
+const Overlay = ({ showInfo, title, description, link }) => (
   <div
     className="absolute w-100 h-100 flex items-center pa3 pa4-ns bg-aqua overlay"
     style={{
@@ -48,7 +48,7 @@ const Overlay = ({ showInfo, title, description }) => (
   >
     <div>
       <h1 className="f4 f3-ns mt0 mb2 regular black normal lh-title">
-        {title}
+        <a href={link}>{title}</a>
       </h1>
       <p className="lh-title lh-copy-ns mv0 black f6 measure-l">
         {description}
@@ -65,6 +65,7 @@ class Attraction extends React.Component {
     };
     this.toggleInfo = this.toggleInfo.bind(this);
     this.closeInfo = this.closeInfo.bind(this);
+    this.showInfoOverlay = this.showInfoOverlay.bind(this);
   }
 
   toggleInfo() {
@@ -79,13 +80,19 @@ class Attraction extends React.Component {
     });
   }
 
+  showInfoOverlay() {
+    this.setState({
+      showInfo: true
+    });
+  }
+
   render() {
     const { title, description, className, image } = this.props;
     const { showInfo } = this.state;
     return (
       <div
         className={`ph4 ph5-ns ph0-l mb4 mb5-ns w-100 overflow-hidden pointer attraction ${className}`}
-        onClick={this.toggleInfo}
+        onMouseOver={this.showInfoOverlay}
         onMouseLeave={this.closeInfo}
       >
         <div className="relative">
