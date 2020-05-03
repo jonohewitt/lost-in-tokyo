@@ -39,6 +39,24 @@ const Nav = () => (
   </nav>
 );
 
+const Overlay = ({ showInfo, title, description }) => (
+  <div
+    className="absolute w-100 h-100 flex items-center pa3 pa4-ns bg-aqua overlay"
+    style={{
+      transform: showInfo ? "none" : "translateY(-100%)"
+    }}
+  >
+    <div>
+      <h1 className="f4 f3-ns mt0 mb2 regular black normal lh-title">
+        {title}
+      </h1>
+      <p className="lh-title lh-copy-ns mv0 black f6 measure-l">
+        {description}
+      </p>
+    </div>
+  </div>
+);
+
 class Attraction extends React.Component {
   constructor(props) {
     super(props);
@@ -46,12 +64,19 @@ class Attraction extends React.Component {
       showInfo: false
     };
     this.toggleInfo = this.toggleInfo.bind(this);
+    this.closeInfo = this.closeInfo.bind(this);
   }
 
   toggleInfo() {
     this.setState((prevState, props) => ({
       showInfo: !this.state.showInfo
     }));
+  }
+
+  closeInfo() {
+    this.setState({
+      showInfo: false
+    });
   }
 
   render() {
@@ -61,23 +86,10 @@ class Attraction extends React.Component {
       <div
         className={`ph4 ph5-ns ph0-l mb4 mb5-ns w-100 overflow-hidden pointer attraction ${className}`}
         onClick={this.toggleInfo}
+        onMouseLeave={this.closeInfo}
       >
         <div className="relative">
-          <div
-            className="absolute w-100 h-100 flex items-center pa3 pa4-ns bg-aqua overlay"
-            style={{
-              transform: showInfo ? "none" : "translateY(-100%)"
-            }}
-          >
-            <div>
-              <h1 className="f4 f3-ns mt0 mb2 regular black normal lh-title">
-                {title}
-              </h1>
-              <p className="lh-title lh-copy-ns mv0 black f6 measure-l">
-                {description}
-              </p>
-            </div>
-          </div>
+          <Overlay {...this.props} {...this.state} />
           <img src={`../images/${image}`} className="db" />
         </div>
       </div>
